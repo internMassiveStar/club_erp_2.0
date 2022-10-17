@@ -104,6 +104,11 @@
                     <li><a href="{{ route('ad-operation') }}">Ad operation</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="{{ route('club-program') }}" aria-expanded="false">
+                    <i class="icon-badge menu-icon"></i><span class="nav-text">Program</span>
+                </a>
+            </li>
             @if(Auth::guard('admin')->check())
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">

@@ -42,6 +42,10 @@ use App\Models\Member;
 
 Route::post('/get-member', [MemberAppController::class, 'getMember']);
 Route::get('/get-position/{id}', [MemberAppController::class, 'getPosition']);
+Route::get('/get-msp/{id}', [MemberAppController::class, 'getMsp']);
+Route::get('/adrcs/{id}', [MemberAppController::class,'AdAndRcs']);
+Route::post('/change-password', [MemberAppController::class, 'changePassword']);  
+
 
 Route::post('/agm-registration', [MemberAppController::class, 'agmRegistration']);
 //  Route::middleware('auth:sanctum')->group(function () { 

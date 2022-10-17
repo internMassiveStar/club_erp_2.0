@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agm;
 use App\Models\Member;
 use App\Models\Mspclubfund;
+use App\Models\MspwithWeight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,12 +20,8 @@ class MemberAppController extends Controller
         $credential=Member::select('password','member_id')->where('email',$request->email)->first();
         if($credential){
             if(Hash::check($request->password,$credential->password)) {
-                $member = DB::table('mspwith_weights')
-                ->join('mspclubfunds','mspclubfunds.member_id','mspwith_weights.member_id')
-                ->select('mspclubfunds.ad_paid','mspclubfunds.rcs','mspwith_weights.member_name','mspwith_weights.msp','mspwith_weights.member_id')
-                ->where('mspwith_weights.member_id',$credential->member_id)
-                ->first();
-                return response()->json($member);
+                
+                return response()->json($credential->member_id);
     
             }
 
@@ -37,7 +34,10 @@ class MemberAppController extends Controller
         
        
             
-        
+public function AdAndRcs($id){
+    $data=Mspclubfund::where('member_id',$id)->first();
+    return response()->json($data);
+}
     
 
 public function getPosition($id){
@@ -60,7 +60,39 @@ public function getPosition($id){
   
 
 }
+public function getMsp($id){
+$msp=MspwithWeight::select('msp')->where('member_id',$id)->first();
+return response()->json($msp);
+}
 
+
+
+
+
+ public function changePassword(Request $request){
+       
+        $validateData = $request->validate([
+            'newpassword' => 'required'
+
+        ]);
+
+ $changepass=Member::select('password','id')->where('email',$request->email)->first();
+                
+        if (Hash::check($request->oldpassword,$changepass->password)) {
+            $updatepass=Member::findOrfail($changepass->id);
+            $updatepass->password=Hash::make($request->newpassword);
+            $updatepass->update();
+            return response()->json([
+             'message'=>'Password Updated'
+           ]); 
+            }else{
+                  return response()->json([
+             'message'=>'Worng Old Password'
+           ]); 
+
+            }
+        
+ }
 public function agmRegistration(Request $request){
 if($request->member_id !=null){
     $agm= new Agm();

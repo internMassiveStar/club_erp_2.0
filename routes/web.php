@@ -14,6 +14,7 @@ use App\Http\Controllers\PinController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\RcsSpecialController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TotaladrcsController;
 use App\Models\PaidDonation;
 use Illuminate\Support\Facades\Auth;
@@ -276,6 +277,12 @@ Route::post('/login-member',[MemberController::class,'loginMember'])->name('logi
         Route::get('reports-withweight',[ReportController::class,'reportsWithweight'])->name('reports-withweight');
         Route::get('reports-withoutweight',[ReportController::class,'reportsWithoutweight'])->name('reports-withoutweight');
         
+        //program
+        Route::get('/member-attend-program',[ProgramController::class,'clubProgram'])->name('club-program');
+        Route::post('/club-program-attend',[ProgramController::class,'clubprogramAttend'])->name('club-program-attend');
+        Route::get('/program-attend-update/{id}',[ProgramController::class,'clubprogramAttendUpdate'])->name('program-attend-update');
+        Route::post('/update-program-attend/{id}',[ProgramController::class,'updateclubprogramAttend'])->name('update-program-attend');
+
         
 
 
