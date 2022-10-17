@@ -7,7 +7,7 @@ use App\Models\AdRcstotal;
 use App\Models\Oldadrcstotal;
 use App\Models\Rcsmaster;
 use App\Models\Pin;
-
+use App\Models\MspwithWeight;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -258,14 +258,22 @@ class TotaladrcsController extends Controller
             $data=DB::table('ad_rcstotals')
             ->select('total_ad','total_paidad','total_duead','total_rcs','total_paidrcs','total_duercs')
             ->get();
-            return view('dashboard',compact('data'));
+            $msp_data = MspwithWeight::where('member_id',Auth::guard('admin')->user()->member_id)->first();
+            $maxm=MspwithWeight::max('msp');
+            $max_msp=MspwithWeight::where('msp',$maxm)->first();
+            return view('dashboard',compact('data','msp_data','max_msp'));
          
         }else if(Auth::guard('member')->check()){
             $data=DB::table('ad_rcstotals')
             ->select('total_ad','total_paidad','total_duead','total_rcs','total_paidrcs','total_duercs')
              ->where('member_id',Session::get('id'))
             ->get();
-            return view('dashboard',compact('data'));
+            $msp_data = MspwithWeight::where('member_id',Auth::guard('member')->user()->member_id)->first();
+            $maxm=MspwithWeight::max('msp');
+            $max_msp=MspwithWeight::where('msp',$maxm)->first();
+            //$max=MspwithWeight::select( 'member_name','msp')->where('msp','10')->first();
+            //return view('chart');
+            return view('dashboard',compact('data','msp_data','max_msp'));
 
         }else{
             return view('dashboard');

@@ -6,6 +6,7 @@ use App\Models\MspwithoutWeight;
 use App\Models\MspwithWeight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 class ReportController extends Controller
 {
     public function reports(){
@@ -27,9 +28,9 @@ class ReportController extends Controller
         $memberwithout=MspwithoutWeight::where('member_id',$request->member_id)->first();
         $highest=MspwithWeight::all();
     
-        // $maxm=MspwithWeight::select('msp')->max('msp');
-        // $max=MspwithWeight::select( 'member_name','msp')->where('msp',$maxm)->first();
-        $max=MspwithWeight::select( 'member_name','msp')->where('msp','10')->first();
+        $maxm=MspwithWeight::select('msp')->max('msp');
+        $max=MspwithWeight::select( 'member_name','msp')->where('msp',$maxm)->first();
+        //$max=MspwithWeight::select( 'member_name','msp')->where('msp','10')->first();
        
         return view('reports.reports',compact('memberwith','memberwithout','position','max','highest'));
        }else{
@@ -57,5 +58,17 @@ class ReportController extends Controller
         $data2 = $datas2->sortByDesc("msp");
         $data=$data1->merge($data2);
         return $data;
+    }
+
+    public function membermsp(){
+        $memberwith=MspwithWeight::where('member_id',Auth::guard('member')->user()->member_id)->first();
+        $memberwithout=MspwithoutWeight::where('member_id',Auth::guard('member')->user()->member_id)->first();
+        return view ('reports.member_msp')->with(compact('memberwithout','memberwith'));
+    }
+
+    public function membermspadmin(){
+        $memberwith=MspwithWeight::where('member_id',Auth::guard('admin')->user()->member_id)->first();
+        $memberwithout=MspwithoutWeight::where('member_id',Auth::guard('admin')->user()->member_id)->first();
+        return view ('reports.member_msp')->with(compact('memberwithout','memberwith'));
     }
 }

@@ -333,16 +333,16 @@ class MspController extends Controller
     if($request->msp1+$request->msp2+$request->msp3+$request->msp4+$request->msp5+$request->msp6+
     $request->msp7+$request->msp8+$request->msp9+$request->msp10 == 100){
         $msp=new Weightage();
-        $msp->msp1=$request->msp1/100;
-        $msp->msp2=$request->msp2/100;
-        $msp->msp3=$request->msp3/100;
-        $msp->msp4=$request->msp4/100;
-        $msp->msp5=$request->msp5/100;
-        $msp->msp6=$request->msp6/100;
-        $msp->msp7=$request->msp7/100;
-        $msp->msp8=$request->msp8/100;
-        $msp->msp9=$request->msp9/100;
-        $msp->msp10=$request->msp10/100;
+        $msp->msp1=$request->msp1;
+        $msp->msp2=$request->msp2;
+        $msp->msp3=$request->msp3;
+        $msp->msp4=$request->msp4;
+        $msp->msp5=$request->msp5;
+        $msp->msp6=$request->msp6;
+        $msp->msp7=$request->msp7;
+        $msp->msp8=$request->msp8;
+        $msp->msp9=$request->msp9;
+        $msp->msp10=$request->msp10;
         $msp->save();
         Session::flash('success',"weightage save");
         
@@ -365,17 +365,18 @@ class MspController extends Controller
     if($request->msp1+$request->msp2+$request->msp3+$request->msp4+$request->msp5+$request->msp6+
     $request->msp7+$request->msp8+$request->msp9+$request->msp10 == 100){
         $msp=Weightage::findOrfail($id);
-        $msp->msp1=$request->msp1/100;
-        $msp->msp2=$request->msp2/100;
-        $msp->msp3=$request->msp3/100;
-        $msp->msp4=$request->msp4/100;
-        $msp->msp5=$request->msp5/100;
-        $msp->msp6=$request->msp6/100;
-        $msp->msp7=$request->msp7/100;
-        $msp->msp8=$request->msp8/100;
-        $msp->msp9=$request->msp9/100;
-        $msp->msp10=$request->msp10/100;
+        $msp->msp1=$request->msp1;
+        $msp->msp2=$request->msp2;
+        $msp->msp3=$request->msp3;
+        $msp->msp4=$request->msp4;
+        $msp->msp5=$request->msp5;
+        $msp->msp6=$request->msp6;
+        $msp->msp7=$request->msp7;
+        $msp->msp8=$request->msp8;
+        $msp->msp9=$request->msp9;
+        $msp->msp10=$request->msp10;
         $msp->update();
+        self::calculation();
         Session::flash('success',"weightage update");
         return redirect('/weightage');
 
@@ -450,16 +451,16 @@ class MspController extends Controller
     //dd($weight->id);
     $msp_without_weights = MspwithoutWeight::all();
     foreach ($msp_without_weights as $key => $value) {
-        $msp1 = $value->member_reference * $weight->msp1;
-        $msp2 = $value->member_clubfund * $weight->msp2;
-        $msp3 = $value->member_referral_clubfund * $weight->msp3;
-        $msp4 = $value->member_attend_formationmeeting * $weight->msp4;
-        $msp5 = $value->member_attend_clubprogram * $weight->msp5;
-        $msp6 = $value->member_responsibility_gap * $weight->msp6;
-        $msp7 = $value->member_attend_communityprogram * $weight->msp7;
-        $msp8 = $value->member_consume * $weight->msp8;
-        $msp9 = $value->member_responsibility * $weight->msp9;
-        $msp10 = $value->member_time_donation * $weight->msp10;
+        $msp1 = $value->member_reference * ($weight->msp1/10);
+        $msp2 = $value->member_clubfund * ($weight->msp2/10);
+        $msp3 = $value->member_referral_clubfund * ($weight->msp3/10);
+        $msp4 = $value->member_attend_formationmeeting * ($weight->msp4/10);
+        $msp5 = $value->member_attend_clubprogram * ($weight->msp5/10);
+        $msp6 = $value->member_responsibility_gap * ($weight->msp6/10);
+        $msp7 = $value->member_attend_communityprogram * ($weight->msp7/10);
+        $msp8 = $value->member_consume * ($weight->msp8/10);
+        $msp9 = $value->member_responsibility * ($weight->msp9/10);
+        $msp10 = $value->member_time_donation * ($weight->msp10/10);
         if($msp1==0 ||$msp2==0 ||$msp3==0 ||$msp4==0 ||$msp5==0 ||$msp6==0 ||$msp7==0 ||$msp8==0 ||$msp9==0 ||$msp10==0){
             $status = 0;
         }

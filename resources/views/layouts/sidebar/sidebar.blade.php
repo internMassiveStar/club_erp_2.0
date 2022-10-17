@@ -21,6 +21,11 @@
     </a>
 </li> 
 <li>
+    <a href="{{ route('member-msp') }}" aria-expanded="false">
+        <i class="icon-badge menu-icon"></i><span class="nav-text">MSP Details</span>
+    </a>
+</li> 
+<li>
     <a href="{{ route('agm-reg') }}" aria-expanded="false">
         <i class="icon-badge menu-icon"></i><span class="nav-text">Agm Registration</span>
     </a>
@@ -204,11 +209,11 @@
                     <i class="icon-badge menu-icon"></i><span class="nav-text">Change Password</span>
                 </a>
             </li> 
-            {{-- <li>
-                <a href="{{ route('change-password') }}" aria-expanded="false">
-                    <i class="icon-badge menu-icon"></i><span class="nav-text">Change Password</span>
-                </a>
-            </li>  --}}
+           <li>
+    <a href="{{ route('member-msp-admin') }}" aria-expanded="false">
+        <i class="icon-badge menu-icon"></i><span class="nav-text">MSP Details</span>
+    </a>
+</li> 
             <li>
                 <a href="{{ route('logout') }}" aria-expanded="false">
                     <i class="icon-grid menu-icon"></i><span class="nav-text">Logout</span>

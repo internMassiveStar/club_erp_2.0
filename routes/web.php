@@ -209,6 +209,11 @@ Route::post('/login-member',[MemberController::class,'loginMember'])->name('logi
         Route::get('/agm-reg',[AgmController::class,'agmView'])->name('agm-reg');
         Route::post('/save-agm',[AgmController::class,'saveAgm'])->name('save-agm');
 
+        // member msp
+        Route::get('member-msp',[ReportController::class,'membermsp'])->name('member-msp');
+        // admin msp
+        Route::get('member-msp-admin',[ReportController::class,'membermspadmin'])->name('member-msp-admin');
+
         });
 
 
@@ -265,11 +270,14 @@ Route::post('/login-member',[MemberController::class,'loginMember'])->name('logi
         Route::get('/calculation',[MspController::class,'calculation'])->name('paid-donation');
 
         //repots
-   Route::get('reports',[ReportController::class,'reports'])->name('reports');
-   
-   Route::post('generate-reports',[ReportController::class,'generateReport'])->name('generate-reports');
-   Route::get('reports-withweight',[ReportController::class,'reportsWithweight'])->name('reports-withweight');
-   Route::get('reports-withoutweight',[ReportController::class,'reportsWithoutweight'])->name('reports-withoutweight');
+        Route::get('reports',[ReportController::class,'reports'])->name('reports');
+        
+        Route::post('generate-reports',[ReportController::class,'generateReport'])->name('generate-reports');
+        Route::get('reports-withweight',[ReportController::class,'reportsWithweight'])->name('reports-withweight');
+        Route::get('reports-withoutweight',[ReportController::class,'reportsWithoutweight'])->name('reports-withoutweight');
+        
+        
+
 
 
 

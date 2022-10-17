@@ -28,7 +28,7 @@ return new class extends Migration
             $table->float('member_consume');
             $table->float('member_responsibility');
             $table->float('member_time_donation');
-            $table->string('msp');
+            $table->float('msp');
             $table->tinyInteger('status');
 
 
