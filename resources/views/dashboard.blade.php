@@ -95,6 +95,20 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-3 col-sm-6">
+        <div class="card gradient-3">
+            <div class="card-body">
+                <h3 class="card-title text-white">MSP</h3>
+                <div class="d-inline-block">
+                    <h2 class="text-white">
+                        {{ Round($msp_data['msp'],2) }}
+                    </h2>
+                    <!-- <p class="text-white mb-0">August - October 2021</p> -->
+                </div>
+                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+            </div>
+        </div>
+    </div>
    
 </div>
 

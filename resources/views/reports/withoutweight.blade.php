@@ -1,6 +1,10 @@
 @extends('layouts.master')
 @section('title') {{'Msp with weight'}} @endsection
 @section('main-content')
+
+<div class="table-responsive">
+    <div id="chart_div" style="height: 500px"></div>
+</div>
 <div class="toolbar hidden-print">
     <div class="text-right">
         <button onclick="exportTableToExcel('tableID','members-data')" class="btn btn-info"><i class="fa fa-save "></i> Export Table Data To Excel File</button>
@@ -81,3 +85,24 @@
 
 
 @endsection
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Member Name(ID)', 'MSP'],
+          
+         @php echo $result;@endphp  
+        ]);
+
+        var options = {
+          title: 'Members MSP Chart With out Weight',
+          legend: { position: 'none' },
+        };
+
+        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>

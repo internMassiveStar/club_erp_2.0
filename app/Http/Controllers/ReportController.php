@@ -43,11 +43,20 @@ class ReportController extends Controller
     public function reportsWithweight(){
        
         $data=self::position();
-        return view('reports.withweight',compact('data'));
+        $result = "";
+        foreach ($data as $key => $val) {
+            $result .= "['".$val->member_name."(".$val->member_id.")',".$val->msp."],";
+        }
+        //dd($result);
+        return view('reports.withweight',compact('data','result'));
     }
     public function reportsWithoutweight(){
         $data=MspwithoutWeight::all();
-        return view('reports.withoutweight',compact('data'));
+        $result = "";
+        foreach ($data as $key => $val) {
+            $result .= "['".$val->member_name."(".$val->member_id.")',".$val->member_reference+$val->member_clubfund+$val->member_referral_clubfund+$val->member_attend_formationmeeting+$val->member_attend_clubprogram+$val->member_responsibility_gap+$val->member_attend_communityprogram+$val->member_consume +$val->member_responsibility +$val->member_time_donation."],";
+        }
+        return view('reports.withoutweight',compact('data','result'));
     }
 
     public function position(){
